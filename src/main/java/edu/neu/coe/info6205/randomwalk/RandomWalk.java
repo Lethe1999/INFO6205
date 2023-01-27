@@ -21,7 +21,9 @@ public class RandomWalk {
      */
     private void move(int dx, int dy) {
         // FIXME do move by replacing the following code
-         throw new RuntimeException("Not implemented");
+        this.x = x + dx;
+        this.y = y + dy;
+        //  throw new RuntimeException("Not implemented");
         // END 
     }
 
@@ -32,6 +34,9 @@ public class RandomWalk {
      */
     private void randomWalk(int m) {
         // FIXME
+        for (int i = 0; i < m; i++) {
+            randomMove();
+        }
         // END 
     }
 
@@ -40,7 +45,7 @@ public class RandomWalk {
      * That's to say, moves can be (+-1, 0) or (0, +-1).
      */
     private void randomMove() {
-        boolean ns = random.nextBoolean();
+        boolean ns = random.nextBoolean();          // Whether move towards North/South
         int step = random.nextBoolean() ? 1 : -1;
         move(ns ? step : 0, ns ? 0 : step);
     }
@@ -52,7 +57,7 @@ public class RandomWalk {
      */
     public double distance() {
         // FIXME by replacing the following code
-         return 0.0;
+        return Math.sqrt(x * x + y * y);
         // END 
     }
 
@@ -81,6 +86,14 @@ public class RandomWalk {
         if (args.length > 1) n = Integer.parseInt(args[1]);
         double meanDistance = randomWalkMulti(m, n);
         System.out.println(m + " steps: " + meanDistance + " over " + n + " experiments");
+
+        // Development test
+//        int m = 1000;
+//        int n = 10000;
+//        for (int i = 1; i <= m; i++) {
+//            System.out.println(Math.log(i) + "," + Math.log(randomWalkMulti(i, n)));
+//            System.out.println(i + "," + randomWalkMulti(i, n));
+//        }
     }
 
 }
