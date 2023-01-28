@@ -1,6 +1,7 @@
 package edu.neu.coe.info6205.threesum;
 
 import edu.neu.coe.info6205.util.Benchmark_Timer;
+import edu.neu.coe.info6205.util.Stopwatch;
 import edu.neu.coe.info6205.util.TimeLogger;
 import edu.neu.coe.info6205.util.Utilities;
 
@@ -35,6 +36,20 @@ public class ThreeSumBenchmark {
     private void benchmarkThreeSum(final String description, final Consumer<int[]> function, int n, final TimeLogger[] timeLoggers) {
         if (description.equals("ThreeSumCubic") && n > 4000) return;
         // FIXME
+
+        int[] arr = supplier.get();     // Get a test case
+
+        try (Stopwatch stopwatch = new Stopwatch();) {
+            for (int run = 0; run < runs; run++) {  // Test
+                function.accept(arr);
+            }
+            long time = stopwatch.lap();            // Calculate time
+            timeLoggers[0].log((double) time, n);
+            timeLoggers[1].log((double) time, n);
+        } catch (Error e) {
+            System.out.println(e);
+        }
+
         // END 
     }
 
